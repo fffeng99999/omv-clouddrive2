@@ -10,6 +10,7 @@ data:
         method: get
         transform:
           statusText: "{{ statusText | translate }}"
+          updateStatusText: "{{ updateStatusText | translate }}"
       post:
         method: set
     hints:
@@ -34,6 +35,15 @@ data:
         label: _("Web interface port")
         value: 19798
         readonly: true
+      - type: textInput
+        name: updateStatusText
+        label: _("Update status")
+        hint: _("Click 'Check for updates' to query the upstream GitHub releases.")
+        readonly: true
+      - type: textInput
+        name: updateLatest
+        label: _("Latest version")
+        readonly: true
       - type: divider
         title: _("Settings")
       - type: checkbox
@@ -48,6 +58,17 @@ data:
         value: "/var/lib/clouddrive2"
         validators:
           required: true
+      - type: select
+        name: channel
+        label: _("Update channel")
+        hint: _("The upstream release channel used when checking for updates and updating CloudDrive2.")
+        value: "stable"
+        store:
+          data:
+            - - "stable"
+              - _("Stable (official releases)")
+            - - "preview"
+              - _("Preview (beta releases)")
     buttons:
       - text: _("Start")
         execute:
@@ -73,6 +94,32 @@ data:
             service: CloudDrive2
             method: restart
             successNotification: _("CloudDrive2 service restarted.")
+      - text: _("Check for updates")
+        execute:
+          type: request
+          request:
+            service: CloudDrive2
+            method: checkUpdate
+            params:
+              channel: "{{ channel }}"
+            progressMessage: _("Checking for updates ...")
+            successNotification: _("Update check finished. See the update status below.")
+            reloadDataOnSuccess: true
+      - text: _("Update")
+        confirmationDialogConfig:
+          template: confirmation
+          message: _("Do you really want to download the latest CloudDrive2 release for the selected channel and restart the service? Your CloudDrive2 configuration and data are kept.")
+        execute:
+          type: taskDialog
+          taskDialog:
+            config:
+              title: _("Updating CloudDrive2")
+              startOnInit: true
+              request:
+                service: CloudDrive2
+                method: update
+                params:
+                  channel: "{{ channel }}"
       - text: _("Open UI")
         execute:
           type: url

@@ -1,3 +1,19 @@
+openmediavault-clouddrive2 (8.0.3) stable; urgency=medium
+
+  * CloudDrive2 self-update support:
+    - New 'Update channel' setting (stable/preview) on the Services ->
+      CloudDrive2 page.
+    - 'Check for updates' button queries the upstream GitHub releases
+      and shows the latest version plus an update-available status.
+    - 'Update' button downloads the latest release for the selected
+      channel in a background task (live output in a task dialog),
+      replaces the program files under /opt/clouddrive2 and restarts
+      the service automatically. The CloudDrive2 configuration and
+      user data (CLOUDDRIVE_HOME) are never touched; no CloudDrive2
+      feature is modified or replaced.
+
+ -- fffeng99999  Sun, 27 Sep 2026 15:00:00 +0800
+
 openmediavault-clouddrive2 (8.0.2) stable; urgency=medium
 
   * WebUI control panel (OpenWrt style): the Services -> CloudDrive2

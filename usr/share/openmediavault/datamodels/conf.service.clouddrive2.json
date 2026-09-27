@@ -14,6 +14,14 @@
 		"configdir": {
 			"type": "string",
 			"default": "/var/lib/clouddrive2"
+		},
+		"channel": {
+			"type": "string",
+			"enum": [
+				"stable",
+				"preview"
+			],
+			"default": "stable"
 		}
 	}
 }

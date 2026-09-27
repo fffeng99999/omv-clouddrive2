@@ -1,3 +1,4 @@
 usr/share/openmediavault/* usr/share/openmediavault/
+usr/sbin/* usr/sbin/
 srv/* srv/
 opt/clouddrive2/* opt/clouddrive2/

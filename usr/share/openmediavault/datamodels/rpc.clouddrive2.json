@@ -1,0 +1,14 @@
+[{
+	"type": "rpc",
+	"id": "rpc.clouddrive2.checkupdate",
+	"params": {
+		"type": "object",
+		"properties": {
+			"channel": {
+				"type": "string",
+				"enum": ["stable", "preview"],
+				"required": true
+			}
+		}
+	}
+}]

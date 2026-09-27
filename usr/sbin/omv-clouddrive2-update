@@ -1,0 +1,144 @@
+#!/usr/bin/env dash
+#
+# This file is part of OpenMediaVault.
+#
+# @license   https://www.gnu.org/licenses/gpl.html GPL Version 3
+# @author    fffeng99999
+#
+# OpenMediaVault is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+
+#
+# Download the latest CloudDrive2 core release for the requested channel
+# and replace the installed binary + web console, then restart the
+# service. Only the CloudDrive2 program files under /opt/clouddrive2 are
+# touched; the user configuration/data (CLOUDDRIVE_HOME) is left intact.
+#
+# Usage: omv-clouddrive2-update <stable|preview>
+#
+set -e
+
+INSTALL_DIR="/opt/clouddrive2"
+VERSION_FILE="${INSTALL_DIR}/VERSION"
+BINARY="${INSTALL_DIR}/clouddrive"
+WWWROOT="${INSTALL_DIR}/wwwroot"
+SERVICE="clouddrive2"
+REPO="cloud-fs/cloud-fs.github.io"
+API="https://api.github.com/repos/${REPO}/releases"
+
+CHANNEL="${1:-stable}"
+case "$CHANNEL" in
+	stable|preview) ;;
+	*)
+		echo "ERROR: channel must be 'stable' or 'preview'" >&2
+		exit 1
+	;;
+esac
+
+# Map the machine architecture to the CloudDrive2 upstream token.
+MACHINE=$(uname -m)
+case "$MACHINE" in
+	x86_64) UARCH="x86_64" ;;
+	aarch64|arm64) UARCH="aarch64" ;;
+	armv7l|armv7|armhf) UARCH="armv7" ;;
+	*)
+		echo "ERROR: unsupported architecture '${MACHINE}'" >&2
+		exit 1
+	;;
+esac
+
+# Optional GitHub token to avoid the anonymous API rate limit.
+AUTH_HEADER=""
+if [ -n "${GH_TOKEN:-}" ]; then
+	AUTH_HEADER="Authorization: Bearer ${GH_TOKEN}"
+fi
+
+api_get() {
+	if [ -n "$AUTH_HEADER" ]; then
+		curl -fsSL --max-time 30 -H "$AUTH_HEADER" "$@"
+	else
+		curl -fsSL --max-time 30 "$@"
+	fi
+}
+
+echo "Channel    : ${CHANNEL}"
+echo "Architecture: ${MACHINE} (upstream: ${UARCH})"
+
+echo "Querying the latest '${CHANNEL}' release from GitHub ..."
+if [ "$CHANNEL" = "preview" ]; then
+	WANT="true"
+else
+	WANT="false"
+fi
+
+TAG=$(api_get "${API}" | awk '
+	/"tag_name":/   { gsub(/.*"tag_name": *"|",?$/, ""); tag=$0 }
+	/"draft":/      { gsub(/.*"draft": *|,?$/, ""); draft=$0 }
+	/"prerelease":/ {
+		gsub(/.*"prerelease": *|,?$/, ""); pre=$0
+		if (draft != "true" && pre == want) { print tag; exit }
+	}
+' want="$WANT" | head -n 1)
+
+if [ -z "$TAG" ]; then
+	echo "ERROR: could not resolve a '${CHANNEL}' release tag." >&2
+	exit 1
+fi
+
+VERSION="${TAG#v}"
+echo "Latest tag : ${TAG} (version ${VERSION})"
+
+CURRENT=""
+if [ -f "$VERSION_FILE" ]; then
+	CURRENT=$(cat "$VERSION_FILE")
+fi
+echo "Installed  : ${CURRENT:-unknown}"
+
+if [ "$CURRENT" = "$VERSION" ]; then
+	echo "Already up to date. Nothing to do."
+	exit 0
+fi
+
+ASSET="clouddrive-2-linux-${UARCH}-${VERSION}.tgz"
+URL="https://github.com/${REPO}/releases/download/${TAG}/${ASSET}"
+echo "Downloading ${URL} ..."
+
+WORKDIR=$(mktemp -d)
+cleanup() {
+	[ -n "$WORKDIR" ] && rm -rf "$WORKDIR"
+}
+trap cleanup EXIT
+
+curl -fL --retry 5 --retry-delay 2 --max-time 600 \
+	-o "${WORKDIR}/${ASSET}" "$URL"
+
+echo "Extracting ..."
+tar xzf "${WORKDIR}/${ASSET}" -C "$WORKDIR"
+
+SRC="${WORKDIR}/clouddrive-2-linux-${UARCH}-${VERSION}"
+if [ ! -f "${SRC}/clouddrive" ] || [ ! -d "${SRC}/wwwroot" ]; then
+	SRC=$(find "$WORKDIR" -mindepth 1 -maxdepth 1 -type d | head -n 1)
+fi
+if [ ! -f "${SRC}/clouddrive" ] || [ ! -d "${SRC}/wwwroot" ]; then
+	echo "ERROR: unexpected archive layout." >&2
+	exit 1
+fi
+
+echo "Stopping the ${SERVICE} service ..."
+systemctl stop "${SERVICE}.service" || true
+
+echo "Replacing program files ..."
+rm -rf "$WWWROOT"
+cp -a "${SRC}/clouddrive" "${BINARY}.new"
+mv -f "${BINARY}.new" "$BINARY"
+chmod 0755 "$BINARY"
+cp -a "${SRC}/wwwroot" "$WWWROOT"
+printf '%s\n' "$VERSION" > "$VERSION_FILE"
+
+echo "Starting the ${SERVICE} service ..."
+systemctl start "${SERVICE}.service" || true
+
+echo "CloudDrive2 updated from ${CURRENT:-unknown} to ${VERSION}."
+exit 0

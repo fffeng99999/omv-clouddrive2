@@ -15,22 +15,9 @@ set -e
 . /usr/share/openmediavault/scripts/helper-functions
 
 ########################################################################
-# Update the configuration.
-# <config>
-#   <services>
-#     <clouddrive2>
-#       <enable>0|1</enable>
-#       <configdir>/var/lib/clouddrive2</configdir>
-#       <channel>stable|preview</channel>
-#     </clouddrive2>
-#   </services>
-# </config>
+# Add the 'channel' key (stable|preview) to an existing configuration.
+# omv_config_add_key is a no-op if the key already exists.
 ########################################################################
-if ! omv_config_exists "/config/services/clouddrive2"; then
-	omv_config_add_node "/config/services" "clouddrive2"
-	omv_config_add_key "/config/services/clouddrive2" "enable" "0"
-	omv_config_add_key "/config/services/clouddrive2" "configdir" "/var/lib/clouddrive2"
-	omv_config_add_key "/config/services/clouddrive2" "channel" "stable"
-fi
+omv_config_add_key "/config/services/clouddrive2" "channel" "stable"
 
 exit 0

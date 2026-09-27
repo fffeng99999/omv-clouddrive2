@@ -29,6 +29,7 @@ case "$1" in
 		remove_action
 		echo "Cleaning up configuration database ..."
 		omv_config_delete "/config/services/clouddrive2"
+		rm -f /var/lib/openmediavault/clouddrive2-update-info.json
 	;;
 
 	remove)

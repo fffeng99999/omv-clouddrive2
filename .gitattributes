@@ -16,6 +16,7 @@ debian/compat         text eol=lf
 debian/copyright      text eol=lf
 debian/source/format  text eol=lf
 build-deb.sh          text eol=lf
+usr/sbin/omv-clouddrive2-update text eol=lf
 
 # Salt state / Jinja templates / shell scripts
 *.sls                 text eol=lf
