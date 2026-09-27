@@ -7,8 +7,9 @@
 	dh $@
 
 # The CloudDrive2 binary is a prebuilt, statically linked ELF executable.
-# Skip the debhelper steps that would try to strip, compress debug info or
-# compute shared-library dependencies for it (there are none).
+# Skip the debhelper steps that would try to strip, compress debug info,
+# compute shared-library dependencies or scan for shared libraries (the
+# cross objdump/binutils are not present and the binary has no deps).
 override_dh_dwz:
 	:
 
@@ -19,4 +20,7 @@ override_dh_strip_nondeterminism:
 	:
 
 override_dh_shlibdeps:
+	:
+
+override_dh_makeshlibs:
 	:
