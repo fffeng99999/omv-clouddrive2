@@ -8,6 +8,8 @@ data:
       service: CloudDrive2
       get:
         method: get
+        transform:
+          statusText: "{{ statusText | translate }}"
       post:
         method: set
     hints:
@@ -16,9 +18,28 @@ data:
         dismissible: true
         stateId: 5b1f2c34-9a76-4c11-8d2e-7f3a1c0b9e44
     fields:
+      - type: divider
+        title: _("Status")
+      - type: textInput
+        name: statusText
+        label: _("Service status")
+        hint: _("Running means the CloudDrive2 service is active on this machine.")
+        readonly: true
+      - type: textInput
+        name: version
+        label: _("CloudDrive2 version")
+        readonly: true
+      - type: textInput
+        name: port
+        label: _("Web interface port")
+        value: 19798
+        readonly: true
+      - type: divider
+        title: _("Settings")
       - type: checkbox
         name: enable
         label: _("Enabled")
+        hint: _("Start the CloudDrive2 service automatically at boot. Click Save and then Apply to take effect.")
         value: false
       - type: textInput
         name: configdir

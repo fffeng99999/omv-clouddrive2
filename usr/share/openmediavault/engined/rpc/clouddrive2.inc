@@ -48,18 +48,41 @@ class OMVRpcServiceCloudDrive2 extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod("getVersion");
     }
 
+    /**
+     * Return the settings object enriched with read-only status fields
+     * for the web interface (service state, bundled version, port).
+     */
     public function get($params, $context)
     {
-        return \OMV\Rpc\Rpc::call("Config", "get", [
+        $object = \OMV\Rpc\Rpc::call("Config", "get", [
             "id" => "conf.service.clouddrive2"
         ], $context);
+        // Read-only information shown in the form (not stored in the
+        // configuration database; set() strips these fields again).
+        $systemCtl = new \OMV\System\SystemCtl("clouddrive2");
+        $running = $systemCtl->isActive();
+        // English msgid; translated by the frontend 'translate' filter.
+        $object["statusText"] = $running ? "Running" : "Stopped";
+        $object["version"] = "";
+        if (file_exists("/opt/clouddrive2/VERSION")) {
+            $version = @file_get_contents("/opt/clouddrive2/VERSION");
+            $object["version"] = (false === $version) ? "" : trim($version);
+        }
+        $object["port"] = 19798;
+        return $object;
     }
 
     public function set($params, $context)
     {
+        // Only persist the fields defined in the datamodel; drop the
+        // read-only status fields sent back by the form.
+        $data = array_intersect_key($params, [
+            "enable" => null,
+            "configdir" => null
+        ]);
         return \OMV\Rpc\Rpc::call("Config", "set", [
             "id" => "conf.service.clouddrive2",
-            "data" => $params
+            "data" => $data
         ], $context);
     }
 

@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: openmediavault-clouddrive2 8.0.1\n"
+"Project-Id-Version: openmediavault-clouddrive2 8.0.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-27 13:30+0800\n"
 "PO-Revision-Date: 2026-09-27 13:30+0800\n"
@@ -57,3 +57,30 @@ msgstr "CloudDrive2 服務已重新啟動。"
 
 msgid "Open UI"
 msgstr "開啟介面"
+
+msgid "Status"
+msgstr "狀態"
+
+msgid "Service status"
+msgstr "服務狀態"
+
+msgid "Running means the CloudDrive2 service is active on this machine."
+msgstr "「執行中」表示 CloudDrive2 服務正在本機執行。"
+
+msgid "Running"
+msgstr "執行中"
+
+msgid "Stopped"
+msgstr "已停止"
+
+msgid "CloudDrive2 version"
+msgstr "CloudDrive2 版本"
+
+msgid "Web interface port"
+msgstr "Web 介面埠"
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "Start the CloudDrive2 service automatically at boot. Click Save and then Apply to take effect."
+msgstr "開機自動啟動 CloudDrive2 服務。點擊「儲存」後再点击「套用」生效。"
