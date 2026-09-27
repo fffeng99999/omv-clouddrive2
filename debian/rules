@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@
+
+# The CloudDrive2 binary is a prebuilt, statically linked ELF executable.
+# Skip the debhelper steps that would try to strip, compress debug info or
+# compute shared-library dependencies for it (there are none).
+override_dh_dwz:
+	:
+
+override_dh_strip:
+	:
+
+override_dh_strip_nondeterminism:
+	:
+
+override_dh_shlibdeps:
+	:

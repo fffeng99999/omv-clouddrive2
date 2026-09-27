@@ -1,0 +1,19 @@
+{
+	"type": "config",
+	"id": "conf.service.clouddrive2",
+	"title": "CloudDrive2",
+	"queryinfo": {
+		"xpath": ".//services/clouddrive2",
+		"iterable": false
+	},
+	"properties": {
+		"enable": {
+			"type": "boolean",
+			"default": false
+		},
+		"configdir": {
+			"type": "string",
+			"default": "/var/lib/clouddrive2"
+		}
+	}
+}

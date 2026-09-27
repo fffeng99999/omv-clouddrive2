@@ -1,0 +1,20 @@
+Source: openmediavault-clouddrive2
+Section: net
+XB-Plugin-Section: utilities
+XB-Plugin-Architecture: amd64, arm64, armhf
+Priority: optional
+Maintainer: fffeng99999
+Build-Depends: debhelper (>= 12)
+Standards-Version: 3.9.6
+Homepage: https://github.com/fffeng99999/omv-clouddrive2
+
+Package: openmediavault-clouddrive2
+Architecture: any
+Depends: openmediavault (>= 8.0), fuse3
+Priority: optional
+Description: openmediavault CloudDrive2 plugin
+ Integrate the CloudDrive2 cloud-drive aggregation service into the
+ OpenMediaVault web interface. The CloudDrive2 core binary is bundled
+ in this architecture-specific package and runs as a systemd service
+ managed through OpenMediaVault (enable/disable, start/stop/restart,
+ configuration directory).

@@ -1,0 +1,59 @@
+# Translation template for openmediavault-clouddrive2.
+# Copyright (C) 2026 fffeng99999
+# This file is distributed under the same license as the openmediavault-clouddrive2 package.
+# fffeng99999, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-clouddrive2 8.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 13:30+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "CloudDrive2"
+msgstr ""
+
+msgid "Updated CloudDrive2 settings."
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Configuration directory"
+msgstr ""
+
+msgid "The directory where CloudDrive2 stores its configuration and data (CLOUDDRIVE_HOME). It must be located on a mounted filesystem."
+msgstr ""
+
+msgid "The CloudDrive2 web interface listens on port 19798. After enabling the service, click Save and then Apply to start it. Use the Start/Stop/Restart buttons for immediate control."
+msgstr ""
+
+msgid "Start"
+msgstr ""
+
+msgid "Stop"
+msgstr ""
+
+msgid "Restart"
+msgstr ""
+
+msgid "Do you really want to restart the CloudDrive2 service?"
+msgstr ""
+
+msgid "CloudDrive2 service started."
+msgstr ""
+
+msgid "CloudDrive2 service stopped."
+msgstr ""
+
+msgid "CloudDrive2 service restarted."
+msgstr ""
+
+msgid "Open UI"
+msgstr ""

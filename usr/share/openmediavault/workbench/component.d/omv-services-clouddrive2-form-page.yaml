@@ -1,0 +1,63 @@
+version: "1.0"
+type: component
+data:
+  name: omv-services-clouddrive2-form-page
+  type: formPage
+  config:
+    request:
+      service: CloudDrive2
+      get:
+        method: get
+      post:
+        method: set
+    hints:
+      - type: info
+        text: _("The CloudDrive2 web interface listens on port 19798. After enabling the service, click Save and then Apply to start it. Use the Start/Stop/Restart buttons for immediate control.")
+        dismissible: true
+        stateId: 5b1f2c34-9a76-4c11-8d2e-7f3a1c0b9e44
+    fields:
+      - type: checkbox
+        name: enable
+        label: _("Enabled")
+        value: false
+      - type: textInput
+        name: configdir
+        label: _("Configuration directory")
+        hint: _("The directory where CloudDrive2 stores its configuration and data (CLOUDDRIVE_HOME). It must be located on a mounted filesystem.")
+        value: "/var/lib/clouddrive2"
+        validators:
+          required: true
+    buttons:
+      - text: _("Start")
+        execute:
+          type: request
+          request:
+            service: CloudDrive2
+            method: start
+            successNotification: _("CloudDrive2 service started.")
+      - text: _("Stop")
+        execute:
+          type: request
+          request:
+            service: CloudDrive2
+            method: stop
+            successNotification: _("CloudDrive2 service stopped.")
+      - text: _("Restart")
+        confirmationDialogConfig:
+          template: confirmation
+          message: _("Do you really want to restart the CloudDrive2 service?")
+        execute:
+          type: request
+          request:
+            service: CloudDrive2
+            method: restart
+            successNotification: _("CloudDrive2 service restarted.")
+      - text: _("Open UI")
+        execute:
+          type: url
+          url: "/externalRedirect/{{ ['http://', location() | get('hostname'), ':19798'] | join | encodeuricomponent }}"
+      - template: cancel
+        execute:
+          type: url
+          url: "/services"
+      - template: submit

@@ -1,0 +1,16 @@
+{{ pillar['headers']['multiline'] -}}
+[Unit]
+Description=CloudDrive2
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/clouddrive2
+Environment=CLOUDDRIVE_HOME={{ config.configdir }}
+ExecStart=/opt/clouddrive2/clouddrive
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

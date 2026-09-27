@@ -1,0 +1,59 @@
+# Translation of openmediavault-clouddrive2 in Chinese (China).
+# Copyright (C) 2026 fffeng99999
+# This file is distributed under the same license as the openmediavault-clouddrive2 package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openmediavault-clouddrive2 8.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 13:30+0800\n"
+"PO-Revision-Date: 2026-09-27 13:30+0800\n"
+"Last-Translator: fffeng99999\n"
+"Language-Team: Chinese (China)\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "CloudDrive2"
+msgstr "CloudDrive2"
+
+msgid "Updated CloudDrive2 settings."
+msgstr "已更新 CloudDrive2 设置。"
+
+msgid "Enabled"
+msgstr "已启用"
+
+msgid "Configuration directory"
+msgstr "配置目录"
+
+msgid "The directory where CloudDrive2 stores its configuration and data (CLOUDDRIVE_HOME). It must be located on a mounted filesystem."
+msgstr "CloudDrive2 存储配置和数据的目录（CLOUDDRIVE_HOME）。该目录必须位于已挂载的文件系统上。"
+
+msgid "The CloudDrive2 web interface listens on port 19798. After enabling the service, click Save and then Apply to start it. Use the Start/Stop/Restart buttons for immediate control."
+msgstr "CloudDrive2 网页界面监听 19798 端口。启用服务后，点击“保存”再点击“应用”即可启动。也可使用“启动/停止/重启”按钮立即控制服务。"
+
+msgid "Start"
+msgstr "启动"
+
+msgid "Stop"
+msgstr "停止"
+
+msgid "Restart"
+msgstr "重启"
+
+msgid "Do you really want to restart the CloudDrive2 service?"
+msgstr "确定要重启 CloudDrive2 服务吗？"
+
+msgid "CloudDrive2 service started."
+msgstr "CloudDrive2 服务已启动。"
+
+msgid "CloudDrive2 service stopped."
+msgstr "CloudDrive2 服务已停止。"
+
+msgid "CloudDrive2 service restarted."
+msgstr "CloudDrive2 服务已重启。"
+
+msgid "Open UI"
+msgstr "打开界面"

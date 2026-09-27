@@ -1,0 +1,10 @@
+version: "1.0"
+type: navigation-item
+data:
+  path: "services.clouddrive2"
+  text: _("CloudDrive2")
+  icon: "mdi:cloud-sync-outline"
+  url: "/services/clouddrive2"
+  permissions:
+    role:
+    - admin

@@ -1,0 +1,8 @@
+version: "1.0"
+type: route
+data:
+  url: "/services/clouddrive2"
+  title: _("CloudDrive2")
+  editing: true
+  notificationTitle: _("Updated CloudDrive2 settings.")
+  component: omv-services-clouddrive2-form-page
