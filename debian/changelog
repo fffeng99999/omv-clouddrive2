@@ -12,7 +12,7 @@ openmediavault-clouddrive2 (8.0.3) stable; urgency=medium
       user data (CLOUDDRIVE_HOME) are never touched; no CloudDrive2
       feature is modified or replaced.
 
- -- ${GITHUB_USER}  Sun, 27 Sep 2026 15:00:00 +0800
+ -- ${GITHUB_USER} <${GITHUB_USER}@users.noreply.github.com>  Sun, 27 Sep 2026 15:00:00 +0800
 
 openmediavault-clouddrive2 (8.0.2) stable; urgency=medium
 
@@ -26,7 +26,7 @@ openmediavault-clouddrive2 (8.0.2) stable; urgency=medium
     and configuration are untouched - they remain managed exclusively
     through its web interface on port 19798.
 
- -- ${GITHUB_USER}  Sun, 27 Sep 2026 14:10:00 +0800
+ -- ${GITHUB_USER} <${GITHUB_USER}@users.noreply.github.com>  Sun, 27 Sep 2026 14:10:00 +0800
 
 openmediavault-clouddrive2 (8.0.1) stable; urgency=medium
 
@@ -39,4 +39,4 @@ openmediavault-clouddrive2 (8.0.1) stable; urgency=medium
       directory, start/stop/restart, link to the CloudDrive2 console).
     - Simplified and Traditional Chinese translations included.
 
- -- ${GITHUB_USER}  Sun, 27 Sep 2026 13:30:00 +0800
+ -- ${GITHUB_USER} <${GITHUB_USER}@users.noreply.github.com>  Sun, 27 Sep 2026 13:30:00 +0800

@@ -3,7 +3,7 @@ Section: net
 XB-Plugin-Section: utilities
 XB-Plugin-Architecture: amd64, arm64, armhf
 Priority: optional
-Maintainer: ${GITHUB_USER}
+Maintainer: ${GITHUB_USER} <${GITHUB_USER}@users.noreply.github.com>
 Build-Depends: debhelper (>= 12)
 Standards-Version: 3.9.6
 Homepage: https://github.com/${GITHUB_USER}/omv-clouddrive2
